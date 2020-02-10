@@ -1,0 +1,63 @@
+{% extends "head.html" %}
+
+
+{% block profile %}
+<section class="content">
+    <section class="container-fluid">
+        <section class="row">
+            <section class="col col-sm-8 offset-sm-2">
+
+                {% if  messages %}
+                        {% for message in messages %}
+                            <div {% if message.tags %} class="{{ message.tags}}"{% endif %}>
+                                {{ message }}
+                                <button type="button" class="close" id = "override-start"data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                {% endif %}
+
+            </section>
+        </section>
+
+        <table class="table table-inbox table-hover">
+                <tbody>
+                    <tr class="unread">
+                        <td class="view-message  dont-show">Title</td>
+                        <td class="view-message ">Reason</td>
+                        <td class="view-message  text-right">Start Date</td>
+                        <td class="view-message  text-right">End Date</td>
+                        <td class="view-message  text-right">Status</td>
+                        <td class="view-message  text-right">created</td>
+                        <td class="view-message  text-right">Details</td>
+                    </tr>
+                {% for leave in leave %}
+                
+                
+                    <tr class="">
+                        <td class="view-message dont-show">{{leave.title}}</td>
+                        <td class="view-message view-message">{{leave.leavetype}}</td>
+                        <td class="view-message text-right">{{leave.startdate|date:"m-d-y"}}</td>
+                        <td class="view-message text-right">{{leave.enddate|date:"m-d-y"}}</td>
+                        {% if leave.is_approved  %}
+                        <td class="view-message text-right" style="color:green;">Approved</td>
+                        {% elif leave.is_cancelled %}
+                        <td class="view-message text-right" style="color:red;">Cancelled</td>
+                        {% else %}
+                        <td class="view-message text-right" style="color:blue;">{{leave.status}}</td>
+                        {% endif %}
+                        <td class="view-message text-right">{{ leave.created|date:"m-d-y" }}</td>
+                        <td  class="view-message text-right"><a href="{% url 'leaveview' leave.id %}">Vue</a></td>
+                        
+                    </tr>
+                {% endfor %}    
+                <tbody>
+            </table>
+        
+
+
+        
+    </section> <!-- /container --> 
+</section>
+
+{% endblock  %}

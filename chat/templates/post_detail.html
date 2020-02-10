@@ -1,0 +1,183 @@
+{% extends "head.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block profile %}
+<style>
+        .card{
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+
+        /*
+    Image credits:
+    uifaces.com (http://uifaces.com/authorized)
+*/
+
+#login { display: none; }
+.login,
+.logout { 
+    position: absolute; 
+    top: -3px;
+    right: 0;
+}
+.page-header { position: relative; }
+.reviews {
+    color: #555;    
+    font-weight: bold;
+    margin: 10px auto 20px;
+}
+.notes {
+    color: #999;
+    font-size: 12px;
+}
+.media .media-object { max-width: 120px; }
+.media-body { position: relative; }
+.media-date { 
+    position: absolute; 
+    right: 25px;
+    top: 25px;
+}
+.media-date li { padding: 0; }
+.media-date li:first-child:before { content: ''; }
+.media-date li:before { 
+    content: '.'; 
+    margin-left: -2px; 
+    margin-right: 2px;
+}
+.media-comment { margin-bottom: 20px; }
+.media-replied { margin: 0 0 20px 50px; }
+.media-replied .media-heading { padding-left: 6px; }
+
+.btn-circle {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 15px;
+    border-radius: 20px;
+}
+.btn-circle span { padding-right: 6px; }
+.embed-responsive { margin-bottom: 20px; }
+.tab-content {
+    padding: 50px 15px;
+    border: 1px solid #ddd;
+    border-top: 0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.custom-input-file {
+    overflow: hidden;
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background: #eee url('https://s3.amazonaws.com/uifaces/faces/twitter/walterstephanie/128.jpg');    
+    background-size: 120px;
+    border-radius: 120px;
+}
+input[type="file"]{
+    z-index: 999;
+    line-height: 0;
+    font-size: 0;
+    position: absolute;
+    opacity: 0;
+    filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";
+    margin: 0;
+    padding:0;
+    left:0;
+}
+.uploadPhoto {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    display: none;
+    width: 50%;
+    height: 50%;
+    color: #fff;    
+    text-align: center;
+    line-height: 60px;
+    text-transform: uppercase;    
+    background-color: rgba(0,0,0,.3);
+    border-radius: 50px;
+    cursor: pointer;
+}
+.custom-input-file:hover .uploadPhoto { display: block; }
+
+.btn-glyphicon { padding:8px;  margin-right:4px; }
+.icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}
+        
+       
+</style>
+
+<section>
+  <div class="content py-3">
+    <div class="card">
+      <div class="row ">
+        <div class="col-md-2" align="center">
+        <br>
+            <img  width="80" hieght="80" src={{obj.user.employee.image.url}} >
+          </div>
+          <div class="col-md-10 ">
+            <div class="card-block px-3">
+            <br>
+                <h4 class="card-title">{{obj.title}}</h4>
+                <p class="card-text  text-muted h6">{{obj.user|upper}} : {{ obj.created_on|timesince}} ago</p>
+                <p class="card-text">{{obj.content}}</p>
+                <a class="float-right btn btn-outline-primary ml-2" data-toggle="modal" data-target="#exampleModal" href="#"><i class="fa fa-reply"></i> Reply</a>
+                <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i> Like</a>
+                <a class="float-left btn text-white btn-primary">{{com.count}} <i class="fa fa-comments-o"></i> comment</a>
+             <br>
+             <p>.</p>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Button trigger modal -->           
+</section>
+{% for com in com %}
+<div class="content py-3 ml-3">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-2">
+                <img width="60" hieght="60" src={{com.user.employee.image.url}}/>
+            </div>
+            <div class="col-md-10">
+                <p>
+                    <a class="float-left"><strong>{{com.user|upper}}</strong></a>
+                </p>
+                <div class="clearfix"></div>
+                {{com.body}} <a class="float-right">{{com.create|timesince}} ago</a>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}  
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Your reply</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              {{ comment_form | crispy }}
+            </div>
+            <button type="submit" class="btn btn-primary">comment</button>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

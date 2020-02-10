@@ -1,0 +1,94 @@
+{% extends "head.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block profile %}
+
+    <section class="row">
+        <section class="col col-sm-8 offset-sm-2">
+
+            {% if  messages %}
+                    {% for message in messages %}
+                        <div {% if message.tags %} class="{{ message.tags}}"{% endif %}>
+                            {{ message }}
+                            <button type="button" class="close" id = "override-start"data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+            {% endif %}
+
+        </section>
+    </section>
+
+<style>
+        .card{
+            box-shadow: 0 16px 48px #E3E7EB;
+        }
+
+        .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+       
+</style>
+
+
+<section>
+  <div class="content py-3">
+  {% for chat in chat  %}
+    <div class="card">
+      <div class="row ">
+        <div class="col-md-3" align="center">
+        <br>
+            <img width="80" hieght="80" src={{chat.user.employee.image.url}} >
+          </div>
+          <div class="col-md-6 ">
+            <div class="card-block px-3">
+            <br>
+                <h4 class="card-title">{{chat.title}}</h4>
+                <p class="card-text  text-muted h6">{{chat.user|upper}} | {{ chat.created_on|timesince}} </p>
+                <p class="card-text">{{chat.content|slice:":100"}}
+                    <a href="{% url 'post_detail' chat.id %}">more...<i class="fa fa-arrow-right"></i></i></a>
+                </p>
+                <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   {% endfor %}
+
+<div class="modal fade" id="post" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Post a message</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+            <form action="{% url 'post' %}" method="POST">
+                {% csrf_token %}
+                {{ posted | crispy }}
+                <button type="submit" class="btn btn-success">Post</button>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <ul class="pagination">
+  {% if chat.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ chat.previous_page_number }}">Previous</a></li>
+  {% endif %}
+    <li class="page-item"><a class="page-link" href="#">Page {{ chat.number }} of {{ chat.paginator.num_pages }}</a></li>
+    {% if chat.has_next %}
+    <li class="page-item"><a class="page-link" href="?page={{ chat.paginator.num_pages }}">Next</a></li>
+    {% endif %}
+  </ul>
+</div>
+
+{% endblock %}

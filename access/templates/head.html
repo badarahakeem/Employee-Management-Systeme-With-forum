@@ -1,0 +1,98 @@
+{% load static  %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+ <div class="mail-box">
+                <aside class="sm-side">
+                    <div class="user-head">
+                    {% if request.user.is_authenticated %}
+                    
+                        <a class="inbox-avatar" href="javascript:;">
+                            <img  width="64" hieght="60" src="{{user.employee.image.url}}">
+                        </a>
+                        <div class="user-name">
+                            <h5><a href="#">{{user.employee.get_full_name}}</a></h5>
+                            <span><a href="#">{{user.employee.role}}</a></span>
+                        </div>
+                    {% else %}
+                        <a class="inbox-avatar" href="javascript:;">
+                            <img  width="64" hieght="60"/>
+                        </a>
+                    {% endif %}
+                    </div>
+                    <div class="inbox-body">
+                        <div class="text-center">
+                            <a class="btn btn-compose" data-toggle="modal" data-target="#post">
+                                Post 
+                            </a>
+                        <!-- Modal -->
+                    </div> 
+                    <br>
+                    <ul class="inbox-nav inbox-divider">
+                        <li class="active">
+                            <a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+
+                        </li>
+                        <li>
+                            <a href="{% url 'createleave'%}"><i class="fa fa-envelope-o"></i> Permissions</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'leavesee' %}"><i class=" fa fa-external-link"></i> Sent <span class="label label-info pull-right">{{leave.count}}</span></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}"><i class=" fa fa-sign-out"></i> Log Out</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="inbox-body text-center">
+                        <div class="btn-group">
+                            <a class="btn mini btn-primary" href="javascript:;">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn mini btn-success" href="javascript:;">
+                                <i class="fa fa-phone"></i>
+                            </a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn mini btn-info" href="javascript:;">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </aside>
+                <aside class="lg-side">
+                    <div class="inbox-head">
+                        <h3>Inbox</h3>
+                        <form action="#" class="pull-right position">
+                            <div class="input-append">
+                                <input type="text" class="sr-input" placeholder="Search Mail">
+                                <button class="btn sr-btn" type="button"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="inbox-body">
+                        
+                        {% block profile %}
+
+                            
+
+                        {% endblock %}
+                    </div>
+                </aside>
+              </div>
+</div>

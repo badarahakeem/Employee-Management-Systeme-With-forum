@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10" align='center'><h3>Update Profile</h3></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+              
+        
+        <form class="form"  method="POST" id="registrationForm" enctype="multipart/form-data">
+            
+        </div><!--/col-3-->
+    	<div class="col-sm-5">
+
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  
+                  {% csrf_token %}
+
+                      <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                            <label for="title"><p1>Title</p1></label>
+                                <input type="text" class="form-control" name="title" id="title" value="{{ employee.title }}">
+                            </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><p1>Fullname</p1></label>
+                              <input type="text" class="form-control" name="get_full_name" id="first_name"  value="{{ employee.get_full_name}}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><p1>Sex</p1></label>
+                              <input type="text" class="form-control" name="sex" id="last_name" value="{{ employee.sex }}">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="phone"><p1>Phone</p1></label>
+                              <input type="text" class="form-control" name="tel" id="phone" value="{{ employee.tel }}">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          <div class="col-xs-6 birthday" >
+                             <label for="birthday"><p1>Birthday</p1></label>
+                              <input type="text" class="form-control" name="birthday" id="birthday"  value="{{ employee.birthday }}">
+                              
+                                <span class="add-on"><i class="icon-th"></i></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="fliale"><p1>Fliale</p1></label>
+                              <input type="text" class="form-control" name="fliale" id="fliale"  value="{{ employee.fliale }}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="address"><p1>Address</p1></label>
+                              <input type="text" class="form-control" name="address" id="address"  value="{{ employee.address }}">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="role"><p1>Poste</p1></label>
+                              <input type="text" class="form-control" name="role" id="role"  value="{{ employee.role }}">
+                          </div>
+                      </div>
+
+                      <div class="col-xs-6">
+                            <label for="image"><p1>Upload a different photo</p1></label>
+                            <br>
+                            <input type="file"  name="image" id="image">
+                      
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" href="{% url 'employeeinfo' employee.id %}" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                            </div>
+                      </div>
+              	</form>
+              
+             
+              </div>
+               
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
+
+
+    <script >
+        $('#birthday').datepicker({
+            weekStart: 0,
+            format:'yyyy-mm-d',
+            todayBtn: "linked",
+            language: "us",
+            orientation: "bottom auto",
+            keyboardNavigation: false,
+            autoclose: true
+        });
+    </script>
+                                                      
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "head.html" %}
+
+{% block profile %}
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+            <div class="container">    
+                <div class="row">
+                    <div class="panel panel-default">
+                    <div class="panel-heading"> 
+                        <ul>
+                         <h4 >User Profile</h4>
+                        </ul>
+                        <ul> 
+                         <input class="btn btn-success" Value="update" style="float:right">
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                    <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                    <img alt="User Pic" src="{{employee.image.url}}" id="profile-image1" class="img-circle img-responsive"> 
+                    
+                
+                    </div>
+                    <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8" >
+                        <div class="container" >
+                        <h2>{{user}}</h2>
+                        <p>an   <b> {{employee.role}}</b></p>
+                        </div>
+                        
+                        <hr>
+                        <ul class="container details" >
+                        <li><p><span class="glyphicon glyphicon-user one" style="width:50px;"></span>{{employee.get_full_name}}</p></li>
+                        <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{employee.email}}</p></li>
+                        <li><p><Strong>AGE</strong><span class="glyphicon " style="width:50px;"></span>{{employee.get_age}}</p></li>
+                        <li><p><Strong>SEX</strong><span class="glyphicon " style="width:50px;"></span>{{employee.sex}}</p></li>
+                        <li><p><Strong>PHONE</strong><span class="glyphicon " style="width:50px;"></span>{{employee.tel}}</p></li>
+                        <li><p><Strong>ADDRESS</strong><span class="glyphicon " style="width:50px;"></span>{{employee.address}}</p></li>
+                        <li><p><Strong>FLIALE</strong><span class="glyphicon " style="width:50px;"></span>{{employee.fliale}}</p></li>
+                        </ul>
+                        <hr>
+                        <div class="col-sm-5 col-xs-6 tital " ><Strong>Join in : </strong>{{employee.created|timesince}}</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+{% endblock %}

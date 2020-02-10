@@ -1,0 +1,22 @@
+{% extends "head.html" %}
+
+{% block profile %}
+
+<div class="row col-md-8 ">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4><strong> Object</strong> : {{leave.title}}</h4></div>
+        <div class="panel-body"><h6><strong> Reason</strong> : {{leave.leavetype}}</h6></div>
+        <div class="panel-body"><h6><strong>Start & End Date</strong> : from {{leave.startdate}}  to {{leave.enddate}}></h6></div>
+        {% if leave.is_approved  %}
+        <div class="panel-body"><h6> <strong>Status</strong> :  <strong style="color:green;"> Your leave is approved</strong></td>
+        {% elif leave.is_cancelled %}
+        <div class="panel-body"> <h6><strong> Status</strong> :  <strong style="color:red;"> Sorry! leave Cancelled</strong></h6></div>
+        {% else %}
+        <div class="panel-body"> <h6><strong> Status</strong> :  <strong style="color:blue;"> {{leave.status}}</strong></h6></div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+
