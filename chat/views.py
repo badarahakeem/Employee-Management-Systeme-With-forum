@@ -27,7 +27,7 @@ def postviews(request):
             instance.user = user
             instance.save()
             messages.success(request,'publication successfully sent',extra_tags = 'alert alert-success alert-dismissible show')
-            return redirect('postcreate')
+            return redirect('')
         messages.error(request,'failed to send publication',extra_tags = 'alert alert-warning alert-dismissible show')
     else:
         posted = PostForm()
