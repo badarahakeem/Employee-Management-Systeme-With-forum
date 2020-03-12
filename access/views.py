@@ -10,6 +10,10 @@ from django.contrib.auth.models import User
 from employee.models import *
 from .forms import (UserLogin)
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import User
+from django.http import HttpResponse
+from django.views.generic import TemplateView, View, ListView
 
 
 
@@ -96,42 +100,21 @@ def user_profile_view(request):
 
 
 
-
-# def logout_view(request):
-# 	logout(request)
-# 	return redirect('login')
+class HomePageView(ListView):
+    model = User
 
 
 
-# def users_list(request):
-# 	employees = Employee.objects.all()
-# 	return render(request,'accounts/users_table.html',{'employees':employees,'title':'Users List'})
+class UserProfileView(View):
+    def get(self, request, user_id):
 
+        try:
+            user = User.objects.get(id=user_id)
+        except:
+            user = None
 
-# def users_unblock(request,id):
-# 	user = get_object_or_404(User,id = id)
-# 	emp = Employee.objects.filter(user = user).first()
-# 	emp.is_blocked = False
-# 	emp.save()
-# 	user.is_active = True
-# 	user.save()
+        context = {
+            "viewed_user": user
+        }
 
-# 	return redirect('accounts:users')
-
-
-# def users_block(request,id):
-# 	user = get_object_or_404(User,id = id)
-# 	emp = Employee.objects.filter(user = user).first()
-# 	emp.is_blocked = True
-# 	emp.save()
-	
-# 	user.is_active = False
-# 	user.save()
-	
-# 	return redirect('accounts:users')
-
-
-
-# def users_blocked_list(request):
-# 	blocked_employees = Employee.objects.all_blocked_employees()
-# 	return render(request,'accounts/all_deleted_users.html',{'employees':blocked_employees,'title':'blocked users list'})
+        return render(request, "user_profile.html", context)

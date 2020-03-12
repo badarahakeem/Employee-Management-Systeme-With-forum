@@ -23,3 +23,12 @@ class LeaveCreationForm(forms.ModelForm):
 			raise forms.ValidationError("Selected dates are wrong")
 
 		return enddate
+
+
+class LeavehrdForm(forms.ModelForm):
+	class Meta:
+		model = Leave
+		fields = '__all__'
+
+
+		

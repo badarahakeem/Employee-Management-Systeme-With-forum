@@ -39,21 +39,19 @@
 </div>
 
     
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fengyuanchen/datepicker@0.6.5/dist/datepicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@fengyuanchen/datepicker@0.6.5/dist/datepicker.min.css" rel="stylesheet"> 
 
-    <script >
-    $(document).ready(function(){
-            $('.dateinput').datepicker({
-            format:'yyyy-mm-dd',
-            uiLibrary: 'bootstrap4'
-        });
 
+<script>
+    $(function() {
+      $("#id_start_time").datepicker({
+        autoHide: true,
+        zIndex: 2048,
+      });
     });
-    {% comment %} $( function() {
-        $( ".dateinput" ).datepicker();
-        uiLibrary: 'bootstrap4'
-    } );
-         {% endcomment %}
-    </script>                                                
+</script>                                              
 
 
 {% endblock %}

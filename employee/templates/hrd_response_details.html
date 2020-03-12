@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block profile %}
+
+<style type="text/css">
+  .invoice {
+    position: relative;
+    background: #fff;
+    border: 1px solid #f4f4f4;
+    padding: 20px;
+    margin: 10px 25px;
+}
+.page-header {
+    margin: 10px 0 20px 0;
+    font-size: 22px;
+}
+</style>
+<section class="content content_content" style="width: 100%; margin: auto;">
+                    <section class="invoice">
+                        <!-- title row -->
+                        <div class="row">
+                            <div class="ml-3 col-xs-12">
+                                <h2 class="page-header">
+                                    <i class="fa fa-user"></i> le DRH
+                                    <small class="pull-right"></small>
+                                </h2>
+                            </div><!-- /.col -->
+                        </div>
+                        <!-- info row -->
+                        <div class="row invoice-info">
+                            <div class="col-sm-4 invoice-col">
+                                From :
+                                {% if request.user.is_authenticated %}
+                                <address>
+                                    <strong>{{user}}</strong>
+                                </address>
+                                {% endif %}
+                            </div><!-- /.col -->
+                            <div class="col-sm-4 invoice-col">
+                                To :
+                                <address>
+                                    <strong>{{responseid.leave.user}}</strong>
+                                
+                                </address>
+                            </div><!-- /.col -->
+                            <div class="col-sm-4 invoice-col">
+                                Fait le :<br>
+                                <b>{{responseid.created}}</b><br>
+                               
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                        <!-- Table row -->
+                        <div class="row">
+                            <div class="col-xs-12 table-responsive">
+                                
+                        <div class="row">
+                            <!-- accepted payments column -->
+                            <div class="ml-3 col-md-12">
+                                <p class="lead">{{responseid.reson}}</p>
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+
+                        <!-- this row will not appear when printing -->
+                    </section>
+                </section>
+
+{%endblock%}

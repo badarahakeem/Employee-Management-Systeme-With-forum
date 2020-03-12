@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block profile %}
+  <!-- DataTales Example -->
+<br>
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example <a style="float:right; color: green" href="#" data-toggle="modal" data-target="#modalLoginForm">Add</a></h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>User</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  {% for resp in response %}
+                    <tr>
+                        <td>{{ resp.leave.user }}</td>
+                        <td>{{ resp.firstdate }}</td>
+                        <td>{{ resp.enddate }}</td>
+                        <td></td>
+                        <td></td>
+                        {% if l.is_cancelled %}
+                        <td style="color:red;">Refused</td>                      
+                            {% elif l.is_approved %}
+                            <td style="color: green;">Accepted</td>
+                            {% else %}
+                            <td style="color: blue">{{l.status}}</td>
+                            {% endif %}
+                         <td> 
+                            <a href="{% url 'details_response' resp.id %}"><i class="fa fa-eye" aria-hidden="true"> views</i>
+                            </a>
+                            <!-- <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a> -->
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </section> <!-- /container --> 
+        </section>
+
+
+<br>
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Response for Ask Leave</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+          <form method="POST">
+              {% csrf_token %}
+              {{form | crispy }}
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{%endblock%}

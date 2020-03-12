@@ -2,34 +2,18 @@ import datetime
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import ugettext as _
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from access.models import User
+from leave.models import Leave
+import secrets
 
 # from leave.models import Leave
 
 
 
-
 # Create your models here.
 
-class Role(models.Model):
-    '''
-       Table des rôles
-    '''
-    name = models.CharField(max_length=125)
-    description = models.CharField(max_length=125,null=True,blank=True)
 
-    created = models.DateTimeField(verbose_name=_('Created'),auto_now_add=True)
-    updated = models.DateTimeField(verbose_name=_('Updated'),auto_now=True)
-
-
-    class Meta:
-        verbose_name = _('Role')
-        verbose_name_plural = _('Roles')
-        ordering = ['name','created']
-
-
-    def __str__(self):
-        return self.name
 
 
 
@@ -58,7 +42,10 @@ class Fliale(models.Model):
 
 class Employee(models.Model):
 
-    
+    def my_secret():
+        return secrets.token_urlsafe(8)[:8] 
+
+ 
     GENDER = (
     ('MALE','Male'),
     ('FEMALE','Female'),
@@ -97,23 +84,19 @@ class Employee(models.Model):
 
     # PERSONAL DATA
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name="employee" )
-    title = models.CharField(_('Title'),max_length=10,default='MR',choices=TITLE,blank=False,null=True)
+    title = models.CharField(_('Title'),max_length=10,default='MR',choices=TITLE,blank=True,null=True)
     image = models.FileField(_('Profile Image'),upload_to='profiles',default='default.png',blank=True,null=True,help_text='upload image size less than 2.0MB')#work on path username-date/image
     get_full_name = models.CharField(_('Fullname'),max_length=125,null=False,blank=False)
     sex = models.CharField(_('Gender'),max_length=8, default='MALE', choices=GENDER, blank=False)
-    email = models.CharField(_('Email (optional)'),max_length=255,default=None,blank=True,null=True)
     tel = PhoneNumberField(default='+221771239025', null = False, blank=False, verbose_name='Phone Number (Example +221771239025)', help_text= 'Enter number with Country Code Eg. +221771239025')
     birthday = models.DateField(_('Birthday'),blank=False,null=False)
     place_of_birth = models.CharField(_('Region'),help_text='what town of the country(senegal) are you from ?', max_length=20, default='Dakar', choices=COMMUNES, blank=False, null=True)
     address = models.CharField(_('Address'),help_text='address of current residence',max_length=125,null=True,blank=True)
+    token = models.CharField(max_length=8, editable=False, default=my_secret)
 
-
-    # COMPANY DATA
     fliale =  models.ForeignKey(Fliale, verbose_name =_('Fliales'),on_delete=models.SET_NULL, null=True,default=None)
-    role =  models.ForeignKey(Role,verbose_name =_('Role'),on_delete=models.SET_NULL,null=True,default=None)
     startdate = models.DateField(_('Employement Date'),help_text='date of employement',blank=False,null=True)
 
-    #app related
     is_blocked = models.BooleanField(_('Is Blocked'),help_text='button to toggle employee block and unblock',default=False)
     is_deleted = models.BooleanField(_('Is Deleted'),help_text='button to toggle employee deleted and undelete',default=False)
  
@@ -145,6 +128,20 @@ class Employee(models.Model):
             return current_year - dateofbirth_year
         return
 
+
+class Response(models.Model):
+    """docstring for Response"""
+    leave = models.OneToOneField(Leave, on_delete=models.CASCADE)
+    reson = models.TextField(max_length=250, help_text="reson for no validation or cancelled?")
+    firstdate = models.DateField(blank=True, null=True)
+    enddate = models.DateField(blank=True, null=True)
+    created = models.DateField(auto_now_add=True)
+    update = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return '{}, {}'.format(self.leave.title, self.leave.user)
+
+        
 
 
    

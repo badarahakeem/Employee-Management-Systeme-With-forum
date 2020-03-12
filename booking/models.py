@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from access.models import User
 from datetime import datetime
 from django.core.checks import register
 

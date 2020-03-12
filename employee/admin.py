@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import (Role, Fliale, Employee)
+from .models import (Fliale, Employee, Response)
 
 
 
-admin.site.register(Role),
 admin.site.register(Fliale),
 admin.site.register(Employee),
+admin.site.register(Response)

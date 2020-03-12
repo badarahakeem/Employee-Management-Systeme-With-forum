@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+        <!--CONTENTS-->
+ {% block profile %}
+        <section class="content">
+            <section class="container-fluid">
+              <section class="row">
+                <section class="col col-lg-12">
+                  <span><a href="{{request.META.HTTP_REFERER|escape}}" style="color:#565656;">Back</a></span>
+                </section>
+              </section>
+                      <section class="row">
+                        <section class="col col-lg-12 col-md-12  col-sm-12">
+                            {% if  messages %}
+                                    {% for message in messages %}
+                                     <div {% if message.tags %} class="{{ message.tags}}"{% endif %}>
+                                         {{ message }}
+                                         <button type="button" class="close" id = "override-start"data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                                         </button>
+                                     </div>
+                                    {% endfor %}
+                            {% endif %}
+
+                        </section>
+                    </section>
+
+                    <section class="col-lg-8 col-md-8 col-sm-8">
+                      <form  method="POST">
+                          {% csrf_token %}
+                          {{ form | crispy }}
+                          <button type="submit" class="btn btn-success">Update</button>
+                      </form>
+                    </section>
+                  
+                
+ {% endblock %}
+
+<script type="text/javascript">
+{% block extrajs%}
+
+{% endblock %}
+</script>
+

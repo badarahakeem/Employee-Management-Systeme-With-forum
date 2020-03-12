@@ -27,6 +27,8 @@ SECRET_KEY = '5_##n0cp+$z1mcf7&u*wp+x_(6f#ou4j-wg#$hxv4f5u*ea!ma'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = 'access.User'
+
 
 
 # Application definition
@@ -49,7 +51,7 @@ INSTALLED_APPS = [
     'leave',
     'booking',
     'chat',
-    
+    'bootstrap_datepicker_plus',    
 ]
 
 MIDDLEWARE = [
@@ -63,8 +65,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'EMS.urls'
-LOGIN_REDIRECT_URL = "post"
-LOGOUT_REDIRECT_URL = "post"
+LOGIN_REDIRECT_URL = "login"
+LOGOUT_REDIRECT_URL = "login"
 
 TEMPLATES = [
     {
@@ -120,6 +122,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

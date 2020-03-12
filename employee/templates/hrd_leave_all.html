@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block profile %}
+	<!-- DataTales Example -->
+<br>
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>User</th>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  {% for l in leave_all %}
+                    <tr>
+                        <td>{{ l.user }}</td>
+                        <td>{{ l.title }}</td>
+                        <td>{{l.leavetype}}</td>
+                        <td>{{ l.startdate }}</td>
+                        <td>{{ l.enddate }}</td>
+                        {% if l.is_cancelled %}
+                        <td style="color:red;">Refused</td>                      
+                            {% elif l.is_approved %}
+                            <td style="color: green;">Accepted</td>
+                            {% else %}
+                            <td style="color: blue">{{l.status}}</td>
+                            {% endif %}
+                         <td> 
+                            <a href="{% url 'hrd_leave_details' l.id %}"><i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                            <a href="{% url 'leave_status' l.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </section> <!-- /container --> 
+        </section>
+
+{%endblock%}
