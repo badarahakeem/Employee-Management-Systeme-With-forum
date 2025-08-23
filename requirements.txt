@@ -76,7 +76,7 @@ pytz==2018.9
 rcssmin==1.0.6
 redis==3.1.0
 reportlab==3.2.0
-requests==2.21.0
+requests==2.32.4
 requests-oauthlib==1.2.0
 rjsmin==1.0.12
 serious-django-permissions==0.6
