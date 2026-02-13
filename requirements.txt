@@ -83,7 +83,7 @@ serious-django-permissions==0.6
 six==1.12.0
 soupsieve==1.7.3
 South==1.0.2
-sqlparse==0.2.4
+sqlparse==0.5.4
 tinycss2==1.0.1
 tweepy==3.7.0
 txaio==18.8.1
